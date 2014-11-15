@@ -1,4 +1,6 @@
 colab-sbx-215.oit.duke.edu
+or
+hackduke.my.to
 user: bitnami
 pass: dogecoin
 
