@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -202,6 +203,10 @@ public class drawer extends Activity
                 TextView textView = new TextView(PlaceholderFragment.this.getActivity());
                 textView.setText(getGroup(i).toString());
                 textView.setPadding(60, 20, 0, 20);
+
+                ImageView iv = new ImageView(PlaceholderFragment.this.getActivity());
+                iv.setImageDrawable();
+
                 if (usage[i]) {
                     textView.setBackgroundColor(getResources().getColor(R.color.red));
                 } else {
@@ -215,7 +220,7 @@ public class drawer extends Activity
             public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
                 TextView textView = new TextView(PlaceholderFragment.this.getActivity());
                 textView.setText(getChild(i, i1).toString());
-                textView.setPadding(0, 10, 0, 10);
+                textView.setPadding(10, 20, 10, 20);
                 return textView;
             }
 
