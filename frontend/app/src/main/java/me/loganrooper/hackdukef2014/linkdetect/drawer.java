@@ -16,7 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.Toast;
+
 
 
 public class drawer extends Activity
@@ -64,8 +73,7 @@ public class drawer extends Activity
             case 2:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
+            default:
                 break;
         }
     }
@@ -126,13 +134,100 @@ public class drawer extends Activity
         }
 
         public PlaceholderFragment() {
+
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
+            ExpandableListView elv = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
+            elv.setAdapter(new myListAdapter());
             return rootView;
+        }
+
+        public class myListAdapter extends BaseExpandableListAdapter {
+
+
+            //Send get request for room data here.
+
+            //Parse it.
+
+            private String[] groups = { "Classroom 1", "Classroom 2", "Group Study 1"};
+
+            private String[][] children = {
+                    { "In use 3 minutes ago.", "+ Reserve Me", "Graph goes here."},
+                    { "In use 25 minutes ago.", "+ Reserve Me" },
+                    { "In use 25 minutes ago.", "+ Reserve Me" }
+            };
+
+            private boolean[] usage = {true, false , false};
+
+            @Override
+            public int getGroupCount() {
+                return groups.length;
+            }
+
+            @Override
+            public int getChildrenCount(int i) {
+                return children[i].length;
+            }
+
+            @Override
+            public Object getGroup(int i) {
+                return groups[i];
+            }
+
+            @Override
+            public Object getChild(int i, int i1) {
+                return children[i][i1];
+            }
+
+            @Override
+            public long getGroupId(int i) {
+                return i;
+            }
+
+            @Override
+            public long getChildId(int i, int i1) {
+                return i1;
+            }
+
+            @Override
+            public boolean hasStableIds() {
+                return true;
+            }
+
+            @Override
+            public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+                TextView textView = new TextView(PlaceholderFragment.this.getActivity());
+                textView.setText(getGroup(i).toString());
+                textView.setPadding(60, 20, 0, 20);
+
+                ImageView iv = new ImageView(PlaceholderFragment.this.getActivity());
+                iv.setImageDrawable();
+
+                if (usage[i]) {
+                    textView.setBackgroundColor(getResources().getColor(R.color.red));
+                } else {
+                    textView.setBackgroundColor(getResources().getColor(R.color.green));
+                }
+
+                return textView;
+            }
+
+            @Override
+            public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+                TextView textView = new TextView(PlaceholderFragment.this.getActivity());
+                textView.setText(getChild(i, i1).toString());
+                textView.setPadding(10, 20, 10, 20);
+                return textView;
+            }
+
+            @Override
+            public boolean isChildSelectable(int i, int i1) {
+                return true;
+            }
         }
 
         @Override
