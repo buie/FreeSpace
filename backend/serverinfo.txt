@@ -1,0 +1,7 @@
+colab-sbx-215.oit.duke.edu
+user: bitnami
+pass: dogecoin
+
+MySQL
+user: root
+pass: bitnami
