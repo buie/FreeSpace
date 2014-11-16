@@ -33,6 +33,11 @@ if ($detection->is_valid()) {
     exit;
 }
 
+// Save latest detection to room
+$room = Rooms::find($data['room_id']);
+$room->latest_time = $detection->id;
+$room->save();
+
 // Make a firebase token
 $tokenGen = new Services_FirebaseTokenGenerator('FFGDc51oHQj2gaDsMBy0lj6ADZ5hbFxPWuz9Sppn');
 $token = $tokenGen->createToken(array("uid" => "1"));

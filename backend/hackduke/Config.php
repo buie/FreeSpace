@@ -26,4 +26,7 @@ class Config {
     
     const SQL_CONNECTION = 'mysql://root:bitnami@localhost/hackduke';
     const SITE_BASE_HTTP = 'http://hackduke.my.to/';
+    
+    // Time to become inactive
+    public static $inactivePeriod = 10;
 }
