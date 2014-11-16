@@ -1,49 +1,46 @@
+//init server
 char server[] = "hackduke.my.to";
 char url[] = "/update.php?room=8";
+
+//init led pins
 int redLed = D0;
 int yellowLed = D2;
 int greenLed = D1;
+
+//init pir sensor pins
 int pir1 = D4;
 int pir2 = D5;
 
+//init pir motion states
 int pir1State = LOW;
 int pir2State = LOW;
 
+//init read data to 0
 int val1 = 0;
 int val2 = 0;
 
 TCPClient client;
 
 void setup() {
-    // Serial.begin(9600);
-    //init pinmodes
+    //init outputs
     pinMode(redLed, OUTPUT);
     pinMode(greenLed, OUTPUT);
     pinMode(yellowLed, OUTPUT);
+    
+    //init inputs
     pinMode(pir1, INPUT);
     pinMode(pir2, INPUT);
     pinMode(D6, INPUT);
     
+    //init led states
     digitalWrite(redLed, LOW);
     digitalWrite(greenLed, LOW);
     digitalWrite(yellowLed, LOW);
 }
 
 void loop() {
-    // if(digitalRead(D6)==HIGH){
-    //     digitalWrite(D0, HIGH);
-    //     ping();
-    //     delay(10000);
-    //     digitalWrite(D0, LOW);
-    //     delay(1000);
-    // }
-    
-    digitalWrite(greenLed, HIGH);
-    delay(2000);
-    digitalWrite(greenLed, LOW);
-    
-    val1 = digitalRead(pir1);
-    val2 = digitalRead(pir2);
+    val1 = digitalRead(pir1); // reads sensor 1
+    val2 = digitalRead(pir2); // reads sensor 2
     
     if ((val1 == HIGH) || (val2 == HIGH)){
         digitalWrite(yellowLed, HIGH);
@@ -69,7 +66,6 @@ void loop() {
 void ping(){ //updates room state on server
     client.connect(server, 80);
     if (client.connected()) {
-        Serial.println("Connected to server.");
         client.print("GET ");
         client.print(url);
         client.println(" HTTP/1.1");
@@ -90,14 +86,11 @@ void ping(){ //updates room state on server
         client.flush();  //for safety
         delay(400);
         client.stop();
-        // Serial.print("sent and closed-bytes: ");
-        // Serial.println(count);
         return;
      }
     else {
         client.flush();
         client.stop();
-        // Serial.println("Not connected");
         return;
     }
 }
