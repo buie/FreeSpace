@@ -1,5 +1,5 @@
 #FreeSpace
-==============
+---------------
 ##find *your* study space
 
 Submission to Hack Duke Fall 2014
@@ -19,7 +19,7 @@ currently developing iOS and web applications.
 
 
 ##Features
-==============
+---------------
 - Distributed sensor network
 - Native Android application
 - Backend support for live datastream using Firebase
@@ -31,7 +31,7 @@ currently developing iOS and web applications.
 - Uses Twilio to provide text message status updates for when rooms become available
 
 ##Screenshots
-==============
+---------------
 ![Identity Verification](https://i.imgur.com/iCW9awn.png)
 ![Home Screen](https://i.imgur.com/pkA5ZMS.png)
 ![Available Rooms] (https://imgur.com/T1uxq3f)
