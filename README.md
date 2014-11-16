@@ -29,7 +29,6 @@ currently developing iOS and web applications.
 - Uses Twilio to provide text message status updates for when rooms become available
 
 ##Screenshots
-![Identity Verification](https://i.imgur.com/iCW9awn.png)
-![Home Screen](https://i.imgur.com/pkA5ZMS.png)
-![Available Rooms](https://imgur.com/T1uxq3f)
-<img src="https://i.imgur.com/iCW9awn.png" width="192" height="320">
+<img src="https://i.imgur.com/iCW9awn.png" width="207.567" height="345.95">
+<img src="https://i.imgur.com/pkA5ZMS.png)" width="207.567" height="345.95">
+<img src="https://i.imgur.com/T1uxq3f.png" width="207.567" height="345.95">
