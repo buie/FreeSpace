@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -333,10 +334,15 @@ public class NavigationDrawerFragment extends Fragment {
     public void showLoginDialog() {
         final EditText txtUrl = new EditText(getActivity());
 
+        ImageView v = new ImageView(getActivity());
+        v.setImageResource(R.drawable.title);
+
         final AlertDialog show = new AlertDialog.Builder(getActivity())
                 .setTitle("Login with your NetID")
                 .setMessage("Confirm that you're a Duke student by entering your NetID.")
                 .setView(txtUrl)
+                .setCustomTitle(v)
+                .
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

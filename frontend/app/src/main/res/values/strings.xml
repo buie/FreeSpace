@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LinkDetect</string>
+    <string name="app_name">FreeSpace</string>
     <string name="title_section1">Available Rooms</string>
     <string name="title_section2">Map</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
