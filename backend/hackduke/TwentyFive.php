@@ -87,13 +87,13 @@ class TwentyFive {
         $json = array();
         if ($this->reserved_now($roomID)) {
             $message = array(
-                'time' => 'now',
+                'time' => '',
                 'message' => 'This room is currently reserved.'
             );
         } else {
             $message = array(
-                'time' => 'now',
-                'message' => 'This room is not currently reserved.'
+                'time' => '',
+                'message' => 'This room is currently not reserved.'
             );
         }
         $json[] = $message;
@@ -103,7 +103,7 @@ class TwentyFive {
             $message['time'] .= '-';
             $message['time'] .= date_convert($reservation->end_time, Config::TIME_FORMAT_SQL, 'g:ia');
             
-            $message['message'] = $reservation->title . ', ' . $reservation->name;
+            $message['message'] = $reservation->name;
             
             $json[] = $message;
         }
@@ -122,7 +122,6 @@ class TwentyFive {
             $url = "https://25live.collegenet.com/25live/data/duke/run/rm_reservations.xml?space_id=$liveRoomID&scope=extended&include=blackouts+closed+pending+related+text+attributes&start_dt=$startDate&end_dt=$endDate";
             
             $raw = $this->fetch_page($url);
-            file_put_contents("raw.txt", $raw);
             $xml = simplexml_load_string($raw, null, null, 'r25', true);
             
             $previousSQL = Reservations::find('all', array('select' => 'id'));

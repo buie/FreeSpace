@@ -30,6 +30,8 @@ class Config {
     const TIME_FORMAT_SQL = 'Y-m-d H:i:s';
     const DATE_FORMAT_SQL = 'Y-m-d';
     
+    const TW_INCLUDE_DIR = 'twilio-php-master';
+    
     // Time to become inactive
     public static $inactivePeriod = 10;
 }
