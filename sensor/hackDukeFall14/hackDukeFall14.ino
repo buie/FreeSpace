@@ -2,7 +2,7 @@ char server[] = "hackduke.my.to";
 char url[] = "/update.php?room=8";
 int redLed = D0;
 int greenLed = D1;
-int yellowLed = D3;
+int yellowLed = D2;
 int pir1 = D4;
 int pir2 = D5;
 
@@ -10,17 +10,19 @@ TCPClient client;
 
 void setup() {
     Serial.begin(9600);
+    //init pinmodes
     pinMode(redLed, OUTPUT);
     pinMode(greenLed, OUTPUT);
     pinMode(yellowLed, OUTPUT);
     pinMode(pir1, INPUT);
     pinMode(pir2, INPUT);
+    //write green high by default
     digitalWrite(greenLed, HIGH);
 }
 
 void loop() {
     
-    if((digitalRead(pir1) == HIGH) || (digitalRead(pir2) == HIGH)){
+    if((digitalRead(pir1) == HIGH) || (digitalRead(pir2) == HIGH)){    //motion detected
         Serial.println("Starting request");
         int retval = ping();
         Serial.print("Returns ");
@@ -34,10 +36,7 @@ void loop() {
     }
 }
 
-
-
-
-int ping(){
+int ping(){ //updates room state on server
     client.connect(server, 80);
     if (client.connected()) {
         Serial.println("Connected to server.");
@@ -59,8 +58,6 @@ int ping(){
           count++;
         }
         client.flush();  //for safety
-
-        //client.flush();
         delay(400);
         client.stop();
         Serial.print("sent and closed-bytes: ");
