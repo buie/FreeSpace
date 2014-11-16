@@ -1,16 +1,5 @@
 <?php
 
-$jwt_filename = dirname(__FILE__) . '/JWT.php';
-
-if (!file_exists($jwt_filename)) {
-    // try Composer autoload
-    $jwt_filename = dirname(__FILE__) . '/vendor/autoload.php';
-}
-
-if (file_exists($jwt_filename)) {
-    include_once $jwt_filename;
-}
-
 class Services_FirebaseTokenGenerator
 {
     private $version = 0;
