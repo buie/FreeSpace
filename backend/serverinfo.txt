@@ -7,3 +7,8 @@ pass: dogecoin
 MySQL
 user: root
 pass: bitnami
+
+Reservations: 
+Begin time
+end time
+reservation ID
