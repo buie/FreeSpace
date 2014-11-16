@@ -3,12 +3,14 @@ package me.loganrooper.hackdukef2014.linkdetect;
 import android.app.Activity;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,8 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,7 +36,28 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 import android.view.ViewGroup.LayoutParams;
 import android.graphics.Typeface;
+import org.apache.http.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import android.os.StrictMode;
 
 public class drawer extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -40,15 +67,24 @@ public class drawer extends Activity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
+    //font awesome
+    private static Typeface font;
+
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_drawer);
+        //Font awesome!
+        font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf" );
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -76,6 +112,9 @@ public class drawer extends Activity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
+                mTitle = "About";
                 break;
             default:
                 break;
@@ -145,27 +184,92 @@ public class drawer extends Activity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
-            ExpandableListView elv = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
+            final ExpandableListView elv = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
             elv.setAdapter(new myListAdapter());
+            //kill other open views
+            elv.setOnGroupExpandListener(new OnGroupExpandListener() {
+                int previousGroup = -1;
+
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (groupPosition != previousGroup)
+                        elv.collapseGroup(previousGroup);
+                    previousGroup = groupPosition;
+                }
+            });
+
+            elv.setDividerHeight(1);
+
             return rootView;
         }
 
         public class myListAdapter extends BaseExpandableListAdapter {
+            private String[] groups;
+            //private String[] groups = { "Classroom 1", "Classroom 2", "Group Study 1"};
+            //private Boolean[][] children;
+            private String[][] children;
+            private boolean[] usage;
+
+            private ArrayList<String> names = new ArrayList<String>();
+            private ArrayList<Boolean> active = new ArrayList<Boolean>();
+
+             myListAdapter() {
+                //Send get request for room data here.
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet("http://hackduke.my.to/client.php?request=rooms&department=1");
+                String result = "";
+                 //THIS IS REALLY BAD!
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+
+                try
+                {
+                    HttpResponse response = httpclient.execute(httpget);
+                    HttpEntity entity = response.getEntity();
+
+                    if (entity != null) {
+                        InputStream inputstream = entity.getContent();
+                        BufferedReader bufferedreader =
+                                new BufferedReader(new InputStreamReader(inputstream));
+                        StringBuilder stringbuilder = new StringBuilder();
+
+                        String currentline = null;
+                        while ((currentline = bufferedreader.readLine()) != null) {
+                            stringbuilder.append(currentline + "\n");
+                        }
+                        result = stringbuilder.toString();
+                        //Log.v("HTTP REQUEST", result);
+                        inputstream.close();
+
+                        //Parse it.
+                        //Rooms: iter through json
+                        JSONObject jObject  = new JSONObject(result);
+                        JSONArray namez = jObject.getJSONArray("rooms");
+
+                        children = new String[namez.length()][3];
+                        usage = new boolean[namez.length()];
+                        groups = new String[namez.length()];
+
+                        for (int i = 0; i < namez.length(); i++) {
+                            JSONObject a =  namez.getJSONObject(i);
+                            groups[i] = a.getString("name");
+                            usage[i] = a.getBoolean("occupied");
+                            children[i][0] = a.getString("description");
+                            children[i][1] = "\uf1ae Capacity: " + a.getString("capacity");
+                            children[i][2] = "\uf0fe Register Now";
+                        }
 
 
-            //Send get request for room data here.
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
 
-            //Parse it.
-
-            private String[] groups = { "Classroom 1", "Classroom 2", "Group Study 1"};
-
-            private String[][] children = {
-                    { "In use 3 minutes ago.", "+ Reserve Me", "Graph goes here."},
-                    { "In use 25 minutes ago.", "+ Reserve Me" },
-                    { "In use 25 minutes ago.", "+ Reserve Me" }
-            };
-
-            private boolean[] usage = {true, false , false};
+                    //defaults
+                    groups = new String[] {e.getLocalizedMessage().toString()};
+                    children = new String[][] {{"Nope"}};
+                    usage = new boolean[] {true};
+                }
+             }
 
             @Override
             public int getGroupCount() {
@@ -210,30 +314,28 @@ public class drawer extends Activity
                 LinearLayout lay = new LinearLayout(PlaceholderFragment.this.getActivity());
                 lay.setOrientation(LinearLayout.VERTICAL);
 
-
                 TextView textView = new TextView(PlaceholderFragment.this.getActivity());
                 textView.setText(getGroup(i).toString());
                 textView.setTextSize(20);
-                textView.setPadding(70, 50, 60, 0);
+                textView.setPadding(90, 50, 60, 0);
 
                 //subtitle text
                 TextView sub = new TextView(PlaceholderFragment.this.getActivity());
-                Typeface font = Typeface.createFromAsset(PlaceholderFragment.this.getActivity().getAssets(), "fontawesome-webfont.ttf" );
                 sub.setTypeface(font, Typeface.ITALIC);
-                sub.setText("\uF0C0 Unknown status.");
-                sub.setPadding(70, 0, 0, 50);
+                sub.setText("\uf196 Unknown status.");
+                sub.setPadding(90, 0, 0, 50);
                 sub.setTextColor(getResources().getColor(R.color.grey));
 
                 //ImageView iv = new ImageView(PlaceholderFragment.this.getActivity());
                 int d = R.drawable.yellow;
 
                 //change pinger icon color
-                if (usage[i]) {
+                if (!usage[i]) {
                     d = R.drawable.green;
                     sub.setText("\uf046 Available Now");
                 } else {
                     d = R.drawable.red;
-                    sub.setText("\uf057 Not available.");
+                    sub.setText("\uf057 Not Available.");
                 }
 
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, d, 0);
@@ -264,7 +366,11 @@ public class drawer extends Activity
             public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
                 TextView textView = new TextView(PlaceholderFragment.this.getActivity());
                 textView.setText(getChild(i, i1).toString());
+                textView.setBackgroundColor(getResources().getColor(R.color.background_grey));
                 textView.setPadding(10, 20, 10, 20);
+                textView.setTypeface(font);
+
+
                 return textView;
             }
 

@@ -6,11 +6,12 @@
     <string name="title_section2">Map</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Refresh Rooms</string>
+    <string name="action_example">Refresh</string>
     <string name="action_settings">Settings</string>
 
     <color name="red">#ff4444</color>
     <color name="green">#99cc00</color>
     <color name="grey">#95a5a6</color>
+    <color name="background_grey">#E2E2E2</color>
 
 </resources>

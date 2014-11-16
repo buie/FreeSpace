@@ -3,7 +3,11 @@ package me.loganrooper.hackdukef2014.linkdetect;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.os.StrictMode;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +24,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Typeface;
 import android.content.res.AssetManager;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -56,6 +75,8 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private String m_Text = "";
+
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
@@ -80,18 +101,25 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
+
+        //Check if logged in or not
+
     }
 
     @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
+
+
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,6 +128,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
         /*TextView t1 = new TextView(getActionBar().getThemedContext());
         t1.setText("Available Rooms");
         t1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cube, 0, 0, 0);
@@ -204,6 +233,8 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        showLoginDialog();
     }
 
     private void selectItem(int position) {
@@ -266,7 +297,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Refreshing data...", Toast.LENGTH_SHORT).show();
             selectItem(mCurrentSelectedPosition);
             return true;
         }
@@ -298,4 +329,123 @@ public class NavigationDrawerFragment extends Fragment {
          */
         void onNavigationDrawerItemSelected(int position);
     }
+
+    public void showLoginDialog() {
+        final EditText txtUrl = new EditText(getActivity());
+
+        final AlertDialog show = new AlertDialog.Builder(getActivity())
+                .setTitle("Login with your NetID")
+                .setMessage("Confirm that you're a Duke student by entering your NetID.")
+                .setView(txtUrl)
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String input = txtUrl.getText().toString();
+
+                        //Check this input
+                        String url = "https://streamer.oit.duke.edu/ldap/people/netid/" + input + "?access_token=44602b1b9839a31959d7266e4693c45c";
+
+                        //Send get request for room data here.
+                        HttpClient httpclient = new DefaultHttpClient();
+                        HttpGet httpget = new HttpGet(url);
+                        String result = "";
+
+                        //THIS IS REALLY BAD! but necessary for now
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+
+                        try {
+                            HttpResponse response = httpclient.execute(httpget);
+                            HttpEntity entity = response.getEntity();
+
+                            if (entity != null) {
+                                InputStream inputstream = entity.getContent();
+                                BufferedReader bufferedreader =
+                                        new BufferedReader(new InputStreamReader(inputstream));
+                                StringBuilder stringbuilder = new StringBuilder();
+
+                                String currentline = null;
+                                while ((currentline = bufferedreader.readLine()) != null) {
+                                    stringbuilder.append(currentline + "\n");
+                                }
+                                result = stringbuilder.toString();
+                                inputstream.close();
+
+                                //Parse it.
+                                if (result.length() < 10) {
+                                    Toast.makeText(getActivity(), (String) "Invalid NetID!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), (String) "You have been authenticated!", Toast.LENGTH_LONG).show();
+                                }
+
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                })
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        System.exit(0);
+
+                    }
+                })
+                .show();
+
+                show.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String input = txtUrl.getText().toString();
+
+                        //Check this input
+                        String url = "https://streamer.oit.duke.edu/ldap/people/netid/" + input + "?access_token=44602b1b9839a31959d7266e4693c45c";
+
+                        //Send get request for room data here.
+                        HttpClient httpclient = new DefaultHttpClient();
+                        HttpGet httpget = new HttpGet(url);
+                        String result = "";
+
+                        //THIS IS REALLY BAD! but necessary for now
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+
+                        try {
+                            HttpResponse response = httpclient.execute(httpget);
+                            HttpEntity entity = response.getEntity();
+
+                            if (entity != null) {
+                                InputStream inputstream = entity.getContent();
+                                BufferedReader bufferedreader =
+                                        new BufferedReader(new InputStreamReader(inputstream));
+                                StringBuilder stringbuilder = new StringBuilder();
+
+                                String currentline = null;
+                                while ((currentline = bufferedreader.readLine()) != null) {
+                                    stringbuilder.append(currentline + "\n");
+                                }
+                                result = stringbuilder.toString();
+                                inputstream.close();
+
+                                //Parse it.
+                                if (result.length() < 10) {
+                                    Toast.makeText(getActivity(), (String) "Invalid NetID!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), (String) "You have been authenticated!", Toast.LENGTH_LONG).show();
+                                    show.dismiss();
+                                }
+
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                });
+
+    }
 }
+
