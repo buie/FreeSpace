@@ -32,4 +32,4 @@ currently developing iOS and web applications.
 ![Identity Verification](https://i.imgur.com/iCW9awn.png)
 ![Home Screen](https://i.imgur.com/pkA5ZMS.png)
 ![Available Rooms](https://imgur.com/T1uxq3f)
-<img src="https://i.imgur.com/iCW9awn.png" width="200" height="150">
+<img src="https://i.imgur.com/iCW9awn.png" width="192" height="320">
