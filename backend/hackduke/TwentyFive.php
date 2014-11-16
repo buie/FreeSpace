@@ -62,22 +62,26 @@ class TwentyFive {
         }
     }
     
-    public function upcoming_reservations($roomID, $time = 'now') {
+    public function upcoming_reservations($roomID) {
         $room = Rooms::find($roomID);
         
         // This is temporary for hack duke presentation
+        $nowSQL = date_to_sql('Mon, 17 Nov 2014 10:35:30 +0000');
+        $futureSQL = date_to_sql('Mon, 17 Nov 2014 15:00:30 +0000');
         
-        
-        $nowSQL = date_to_sql('now');
-        $futureSQL = date_to_sql('+5 hours');
+        //$nowSQL = date_to_sql('now');
+        //$futureSQL = date_to_sql('+5 hours');
+                
         $liveID = $room->live_id;
         $reservations = Reservations::find('all', array(
+            'order' => 'begin_time asc',
             'conditions' => array(
                 'room_id = ? AND begin_time >= ? AND begin_time < ?',
                 $liveID,
                 $nowSQL,
                 $futureSQL
-            )
+            ),
+            
         ));
         
         $json = array();
@@ -153,7 +157,7 @@ class TwentyFive {
         }
     }
 }
-
+/*
 // Require
 require_once('Config.php');
 require_once('NewFirebase.php');
@@ -173,3 +177,5 @@ ActiveRecord\Config::initialize(function($cfg) {
 $asdf = new TwentyFive();
 //$asdf->update_database();
 var_dump($asdf->upcoming_reservations(8));
+ * 
+ */

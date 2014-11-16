@@ -3,6 +3,7 @@
 // Require
 require_once('Config.php');
 require_once('helper.php');
+require_once('TwentyFive.php');
 require_once(Config::AR_INCLUDE_DIR . '/ActiveRecord.php');
 
 // What we will return
@@ -59,6 +60,8 @@ switch ($request) {
         ));
         
         // Make some nice data
+        $live = new TwentyFive();
+        
         $json['rooms'] = array();
         foreach ($rooms as $sqlRoom) {
             $room = array();
@@ -67,6 +70,9 @@ switch ($request) {
             $room['description'] = $sqlRoom->description;
             $room['capacity'] = $sqlRoom->capacity;
             $room['occupied'] = false;
+            
+            $room['reservations'] = $live->upcoming_reservations($room['id']);
+            $room['reserved_now'] = $live->reserved_now($room['id']);
             
             if (is_null($sqlRoom->timestamp)) {
                 $room['latest_timestamp'] = null;
