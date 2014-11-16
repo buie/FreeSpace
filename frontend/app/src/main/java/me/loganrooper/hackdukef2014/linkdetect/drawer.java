@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +19,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -25,7 +28,8 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
-
+import android.view.ViewGroup.LayoutParams;
+import android.graphics.Typeface;
 
 
 public class drawer extends Activity
@@ -200,20 +204,60 @@ public class drawer extends Activity
 
             @Override
             public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+                //RelativeLayout layout = new RelativeLayout(PlaceholderFragment.this.getActivity());
+                //layout.setGravity(Gravity.LEFT);
+
+                LinearLayout lay = new LinearLayout(PlaceholderFragment.this.getActivity());
+                lay.setOrientation(LinearLayout.VERTICAL);
+
+
                 TextView textView = new TextView(PlaceholderFragment.this.getActivity());
                 textView.setText(getGroup(i).toString());
-                textView.setPadding(60, 20, 0, 20);
+                textView.setTextSize(20);
+                textView.setPadding(70, 50, 60, 0);
 
-                ImageView iv = new ImageView(PlaceholderFragment.this.getActivity());
-                iv.setImageDrawable();
+                //subtitle text
+                TextView sub = new TextView(PlaceholderFragment.this.getActivity());
+                Typeface font = Typeface.createFromAsset(PlaceholderFragment.this.getActivity().getAssets(), "fontawesome-webfont.ttf" );
+                sub.setTypeface(font, Typeface.ITALIC);
+                sub.setText("\uF0C0 Unknown status.");
+                sub.setPadding(70, 0, 0, 50);
+                sub.setTextColor(getResources().getColor(R.color.grey));
 
+                //ImageView iv = new ImageView(PlaceholderFragment.this.getActivity());
+                int d = R.drawable.yellow;
+
+                //change pinger icon color
                 if (usage[i]) {
-                    textView.setBackgroundColor(getResources().getColor(R.color.red));
+                    d = R.drawable.green;
+                    sub.setText("\uf046 Available Now");
                 } else {
-                    textView.setBackgroundColor(getResources().getColor(R.color.green));
+                    d = R.drawable.red;
+                    sub.setText("\uf057 Not available.");
                 }
 
-                return textView;
+                textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, d, 0);
+
+                //linear image layout
+                /*
+                LinearLayout image_layout = new LinearLayout(PlaceholderFragment.this.getActivity());
+                image_layout.addView(iv);
+                image_layout.setHorizontalGravity(Gravity.RIGHT);
+                image_layout.setOrientation(LinearLayout.HORIZONTAL);
+
+                layout.addView(textView);
+                layout.addView(image_layouttex);
+
+                layout.setVerticalGravity(Gravity.CENTER);
+                LayoutParams params = layout.getLayoutParams();
+                params.height = 100;
+
+                return layout;*/
+                lay.addView(textView);
+                lay.addView(sub);
+
+
+                return lay;
             }
 
             @Override

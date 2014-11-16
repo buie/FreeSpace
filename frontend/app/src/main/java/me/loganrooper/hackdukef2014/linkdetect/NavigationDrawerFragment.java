@@ -20,7 +20,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Typeface;
+import android.content.res.AssetManager;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -97,13 +100,29 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        /*TextView t1 = new TextView(getActionBar().getThemedContext());
+        t1.setText("Available Rooms");
+        t1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cube, 0, 0, 0);
+        TextView t2 = new TextView(getActionBar().getThemedContext());
+        t2.setText("Map");
+        t2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.map, 0, 0, 0);
+
+        mDrawerListView.setAdapter(new ArrayAdapter<TextView>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+
+                new TextView[]{
+                        t1, t2
+                }));
+               */
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
+
                 new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2)
+                        "▶ Available Rooms", "▶ View Map"
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
