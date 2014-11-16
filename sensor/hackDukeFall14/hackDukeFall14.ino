@@ -1,28 +1,76 @@
-int led = D0;
-int led2 = D7;
-int pirState = LOW;
-int val = 0;
-int inputPin = D2;
+char server[] = "hackduke.my.to";
+char url[] = "/update.php?room=8";
+int redLed = D0;
+int greenLed = D1;
+int yellowLed = D3;
+int pir1 = D4;
+int pir2 = D5;
+
+TCPClient client;
 
 void setup() {
-  pinMode(led, OUTPUT);
-  pinMode(led2, OUTPUT);
-  pinMode(inputPin, INPUT);
+    Serial.begin(9600);
+    pinMode(redLed, OUTPUT);
+    pinMode(greenLed, OUTPUT);
+    pinMode(yellowLed, OUTPUT);
+    pinMode(pir1, INPUT);
+    pinMode(pir2, INPUT);
+    digitalWrite(greenLed, HIGH);
 }
 
 void loop() {
-  val = digitalRead(inputPin);
-  if (val == HIGH) {
-    digitalWrite(led, HIGH);
-    digitalWrite(led2, HIGH);
-    if (pirState == LOW) {
-      pirState = HIGH;
+    
+    if((digitalRead(pir1) == HIGH) || (digitalRead(pir2) == HIGH)){
+        Serial.println("Starting request");
+        int retval = ping();
+        Serial.print("Returns ");
+        Serial.println(retval);
+        digitalWrite(yellowLed, HIGH);
+        delay(10000);
     }
-  } else {
-    digitalWrite(led, LOW);
-    digitalWrite(led2, LOW);
-    if (pirState == HIGH){
-      pirState = LOW;
+    else{
+        digitalWrite(yellowLed, LOW);
+        delay(100);
     }
-  }
+}
+
+
+
+
+int ping(){
+    client.connect(server, 80);
+    if (client.connected()) {
+        Serial.println("Connected to server.");
+        client.print("GET ");
+        client.print(url);
+        client.println(" HTTP/1.1");
+        client.print("Host: ");
+        client.println(server);
+        client.println("Connection: close");
+        client.println();
+
+        unsigned int count = 0;
+        unsigned long lastTime = millis();
+        while( client.available()==0 && millis()-lastTime<10000) { //ten second timeout
+          }  //do nothing
+        lastTime = millis();
+        while( client.available() && millis()-lastTime<10000 ) {  //ten seconds
+          client.read();  //flush data
+          count++;
+        }
+        client.flush();  //for safety
+
+        //client.flush();
+        delay(400);
+        client.stop();
+        Serial.print("sent and closed-bytes: ");
+        Serial.println(count);
+    return 1;
+     }
+    else {
+        client.flush();
+        client.stop();
+        Serial.println("Not connected");
+        return 0;
+    }
 }
