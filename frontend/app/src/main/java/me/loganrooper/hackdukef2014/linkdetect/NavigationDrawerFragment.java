@@ -342,7 +342,6 @@ public class NavigationDrawerFragment extends Fragment {
                 .setMessage("Confirm that you're a Duke student by entering your NetID.")
                 .setView(txtUrl)
                 .setCustomTitle(v)
-                .
                 .setCancelable(false)
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

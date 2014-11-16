@@ -149,11 +149,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NavigationDrawerFragment.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="NavigationDrawerFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/NavigationDrawerFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55939525" vertical-offset="4901" max-vertical-offset="6945">
-              <caret line="344" column="17" selection-start-line="344" selection-start-column="17" selection-end-line="344" selection-end-column="17" />
+            <state vertical-scroll-proportion="-5.923077" vertical-offset="2141" max-vertical-offset="6930">
+              <caret line="153" column="28" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4223#4441#0" expanded="true" />
@@ -165,12 +165,12 @@
                 <element signature="e#11626#11643#0" expanded="true" />
                 <element signature="e#11690#11691#0" expanded="true" />
                 <element signature="e#11741#11742#0" expanded="true" />
-                <element signature="e#12638#15076#0" expanded="true" />
-                <element signature="e#15057#15058#0" expanded="true" />
-                <element signature="e#15122#15325#0" expanded="true" />
-                <element signature="e#15306#15307#0" expanded="true" />
-                <element signature="e#15432#17907#0" expanded="true" />
-                <element signature="e#17888#17889#0" expanded="true" />
+                <element signature="e#12620#15058#0" expanded="true" />
+                <element signature="e#15039#15040#0" expanded="true" />
+                <element signature="e#15104#15307#0" expanded="true" />
+                <element signature="e#15288#15289#0" expanded="true" />
+                <element signature="e#15414#17889#0" expanded="true" />
+                <element signature="e#17870#17871#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -179,32 +179,39 @@
       <file leaf-file-name="drawer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/drawer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5916" max-vertical-offset="6960">
-              <caret line="399" column="39" selection-start-line="399" selection-start-column="39" selection-end-line="399" selection-end-column="39" />
+            <state vertical-scroll-proportion="7.0" vertical-offset="3617" max-vertical-offset="6975">
+              <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6863#7534#0" expanded="true" />
-                <element signature="e#7519#7520#0" expanded="true" />
-                <element signature="e#7958#7966#0" expanded="true" />
-                <element signature="e#8031#8040#0" expanded="true" />
-                <element signature="e#11469#11470#0" expanded="true" />
-                <element signature="e#11521#11522#0" expanded="true" />
-                <element signature="e#11593#11594#0" expanded="true" />
-                <element signature="e#11650#11651#0" expanded="true" />
-                <element signature="e#11717#11718#0" expanded="true" />
-                <element signature="e#11765#11766#0" expanded="true" />
-                <element signature="e#11840#11841#0" expanded="true" />
-                <element signature="e#11894#11895#0" expanded="true" />
-                <element signature="e#11961#11962#0" expanded="true" />
-                <element signature="e#12001#12002#0" expanded="true" />
-                <element signature="e#12076#12077#0" expanded="true" />
-                <element signature="e#12117#12118#0" expanded="true" />
-                <element signature="e#12184#12185#0" expanded="true" />
-                <element signature="e#12227#12228#0" expanded="true" />
-                <element signature="e#16330#16331#0" expanded="true" />
-                <element signature="e#16373#16374#0" expanded="true" />
+                <element signature="e#6883#7554#0" expanded="true" />
+                <element signature="e#7539#7540#0" expanded="true" />
+                <element signature="e#7978#7986#0" expanded="true" />
+                <element signature="e#8051#8060#0" expanded="true" />
+                <element signature="e#11489#11490#0" expanded="true" />
+                <element signature="e#11541#11542#0" expanded="true" />
+                <element signature="e#11613#11614#0" expanded="true" />
+                <element signature="e#11670#11671#0" expanded="true" />
+                <element signature="e#11737#11738#0" expanded="true" />
+                <element signature="e#11785#11786#0" expanded="true" />
+                <element signature="e#11860#11861#0" expanded="true" />
+                <element signature="e#11914#11915#0" expanded="true" />
+                <element signature="e#11981#11982#0" expanded="true" />
+                <element signature="e#12021#12022#0" expanded="true" />
+                <element signature="e#12096#12097#0" expanded="true" />
+                <element signature="e#12137#12138#0" expanded="true" />
+                <element signature="e#12204#12205#0" expanded="true" />
+                <element signature="e#12247#12248#0" expanded="true" />
+                <element signature="e#16350#16351#0" expanded="true" />
+                <element signature="e#16393#16394#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="title.png" pinned="false" current="true" current-in-tab="true">
+        <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/res/drawable-xhdpi/title.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -929,9 +936,9 @@
         <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/res/layout/shib.xml" />
         <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/res/layout/login.xml" />
         <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/NoticeDialogFragment.java" />
-        <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/drawer.java" />
         <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/res/values/strings.xml" />
         <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/NavigationDrawerFragment.java" />
+        <option value="/Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/drawer.java" />
       </list>
     </option>
   </component>
@@ -1642,36 +1649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/drawer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5916" max-vertical-offset="6960">
-          <caret line="399" column="39" selection-start-line="399" selection-start-column="39" selection-end-line="399" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6863#7534#0" expanded="true" />
-            <element signature="e#7519#7520#0" expanded="true" />
-            <element signature="e#7958#7966#0" expanded="true" />
-            <element signature="e#8031#8040#0" expanded="true" />
-            <element signature="e#11469#11470#0" expanded="true" />
-            <element signature="e#11521#11522#0" expanded="true" />
-            <element signature="e#11593#11594#0" expanded="true" />
-            <element signature="e#11650#11651#0" expanded="true" />
-            <element signature="e#11717#11718#0" expanded="true" />
-            <element signature="e#11765#11766#0" expanded="true" />
-            <element signature="e#11840#11841#0" expanded="true" />
-            <element signature="e#11894#11895#0" expanded="true" />
-            <element signature="e#11961#11962#0" expanded="true" />
-            <element signature="e#12001#12002#0" expanded="true" />
-            <element signature="e#12076#12077#0" expanded="true" />
-            <element signature="e#12117#12118#0" expanded="true" />
-            <element signature="e#12184#12185#0" expanded="true" />
-            <element signature="e#12227#12228#0" expanded="true" />
-            <element signature="e#16330#16331#0" expanded="true" />
-            <element signature="e#16373#16374#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/res/layout/list_item.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.111111" vertical-offset="0" max-vertical-offset="255">
@@ -1701,8 +1678,8 @@
     </entry>
     <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/NavigationDrawerFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55939525" vertical-offset="4901" max-vertical-offset="6945">
-          <caret line="344" column="17" selection-start-line="344" selection-start-column="17" selection-end-line="344" selection-end-column="17" />
+        <state vertical-scroll-proportion="-5.923077" vertical-offset="2141" max-vertical-offset="6930">
+          <caret line="153" column="28" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4223#4441#0" expanded="true" />
@@ -1714,14 +1691,49 @@
             <element signature="e#11626#11643#0" expanded="true" />
             <element signature="e#11690#11691#0" expanded="true" />
             <element signature="e#11741#11742#0" expanded="true" />
-            <element signature="e#12638#15076#0" expanded="true" />
-            <element signature="e#15057#15058#0" expanded="true" />
-            <element signature="e#15122#15325#0" expanded="true" />
-            <element signature="e#15306#15307#0" expanded="true" />
-            <element signature="e#15432#17907#0" expanded="true" />
-            <element signature="e#17888#17889#0" expanded="true" />
+            <element signature="e#12620#15058#0" expanded="true" />
+            <element signature="e#15039#15040#0" expanded="true" />
+            <element signature="e#15104#15307#0" expanded="true" />
+            <element signature="e#15288#15289#0" expanded="true" />
+            <element signature="e#15414#17889#0" expanded="true" />
+            <element signature="e#17870#17871#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/java/me/loganrooper/hackdukef2014/linkdetect/drawer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.0" vertical-offset="3617" max-vertical-offset="6975">
+          <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6883#7554#0" expanded="true" />
+            <element signature="e#7539#7540#0" expanded="true" />
+            <element signature="e#7978#7986#0" expanded="true" />
+            <element signature="e#8051#8060#0" expanded="true" />
+            <element signature="e#11489#11490#0" expanded="true" />
+            <element signature="e#11541#11542#0" expanded="true" />
+            <element signature="e#11613#11614#0" expanded="true" />
+            <element signature="e#11670#11671#0" expanded="true" />
+            <element signature="e#11737#11738#0" expanded="true" />
+            <element signature="e#11785#11786#0" expanded="true" />
+            <element signature="e#11860#11861#0" expanded="true" />
+            <element signature="e#11914#11915#0" expanded="true" />
+            <element signature="e#11981#11982#0" expanded="true" />
+            <element signature="e#12021#12022#0" expanded="true" />
+            <element signature="e#12096#12097#0" expanded="true" />
+            <element signature="e#12137#12138#0" expanded="true" />
+            <element signature="e#12204#12205#0" expanded="true" />
+            <element signature="e#12247#12248#0" expanded="true" />
+            <element signature="e#16350#16351#0" expanded="true" />
+            <element signature="e#16393#16394#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/Macintosh Data/loganrooper/Documents/Non-drive-code/LinkDetect/app/src/main/res/drawable-xhdpi/title.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
   </component>
