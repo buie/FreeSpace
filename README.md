@@ -30,5 +30,8 @@ currently developing iOS and web applications.
 
 ##Screenshots
 ![Identity Verification](https://i.imgur.com/iCW9awn.png)
+{:.some-css-class style="width: 200px"}
 ![Home Screen](https://i.imgur.com/pkA5ZMS.png)
+{:.some-css-class style="width: 200px"}
 ![Available Rooms](https://imgur.com/T1uxq3f)
+{:.some-css-class style="width: 200px"}
