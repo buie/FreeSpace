@@ -56,6 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 import android.os.StrictMode;
 
@@ -186,6 +187,7 @@ public class drawer extends Activity
             View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
             final ExpandableListView elv = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
             elv.setAdapter(new myListAdapter());
+
             //kill other open views
             elv.setOnGroupExpandListener(new OnGroupExpandListener() {
                 int previousGroup = -1;
@@ -199,6 +201,20 @@ public class drawer extends Activity
             });
 
             elv.setDividerHeight(1);
+
+            elv.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                    if (parent.isGroupExpanded(groupPosition)) {
+                        parent.collapseGroup(groupPosition);
+                    } else {
+                        boolean animateExpansion = false;
+                        parent.expandGroup(groupPosition, animateExpansion);
+                    }
+                    //telling the listView we have handled the group click, and don't want the default actions.
+                    return true;
+                }
+            });
 
             return rootView;
         }
@@ -246,17 +262,33 @@ public class drawer extends Activity
                         JSONObject jObject  = new JSONObject(result);
                         JSONArray namez = jObject.getJSONArray("rooms");
 
-                        children = new String[namez.length()][3];
+
                         usage = new boolean[namez.length()];
                         groups = new String[namez.length()];
+                        children = new String[namez.length()][8]; //+reserv.length()
 
                         for (int i = 0; i < namez.length(); i++) {
                             JSONObject a =  namez.getJSONObject(i);
+                            JSONArray reserv = a.getJSONArray("reservations");
+
+                            for (int j = 1; j < 4 ; j++) {
+                                if (j < reserv.length()) {
+                                    children[i][j+4] = reserv.getJSONObject(j).getString("time") + " " + reserv.getJSONObject(j).getString("message");
+                                } else {
+                                    children[i][j+4] = "null";
+                                }
+
+                            }
+
                             groups[i] = a.getString("name");
                             usage[i] = a.getBoolean("occupied");
                             children[i][0] = a.getString("description");
                             children[i][1] = "\uf1ae Capacity: " + a.getString("capacity");
                             children[i][2] = "\uf0fe Register Now";
+                            children[i][3] = "histogram";
+                            children[i][4] = reserv.getJSONObject(0).getString("message");
+
+
                         }
 
 
@@ -265,7 +297,7 @@ public class drawer extends Activity
                     e.printStackTrace();
 
                     //defaults
-                    groups = new String[] {e.getLocalizedMessage().toString()};
+                    groups = new String[] {e.toString()};
                     children = new String[][] {{"Nope"}};
                     usage = new boolean[] {true};
                 }
@@ -365,10 +397,45 @@ public class drawer extends Activity
             @Override
             public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
                 TextView textView = new TextView(PlaceholderFragment.this.getActivity());
+                ImageView iv = new ImageView(PlaceholderFragment.this.getActivity());
+
                 textView.setText(getChild(i, i1).toString());
                 textView.setBackgroundColor(getResources().getColor(R.color.background_grey));
                 textView.setPadding(10, 20, 10, 20);
                 textView.setTypeface(font);
+
+                if (i1 == 4) {
+                    textView.setTypeface(font, Typeface.ITALIC);
+                }
+
+                if (i1 >= 5) {
+                    if (!getChild(i, i1).equals("null")) {
+                        textView.setBackground(getResources().getDrawable(R.drawable.backgroundtile));
+                        textView.setHeight(80);
+                    }
+                }
+
+                if (getChild(i, i1).equals("null")) {
+                    textView.setHeight(0);
+                }
+
+                Random rand = new Random();
+                if (getChild(i, i1).equals("histogram")) {
+                    int randomNum = rand.nextInt((2 - 0) + 1) + 0;
+                    if (randomNum == 0) {
+                        iv.setImageResource(R.drawable.androidplot);
+                    } else if (randomNum == 1) {
+                        iv.setImageResource(R.drawable.androidplot1);
+                    } else {
+                        iv.setImageResource(R.drawable.androidplot2);
+                    }
+
+
+                    iv.setPadding(0, -50, 0, -50);
+
+                    return iv;
+                }
+
 
 
                 return textView;
