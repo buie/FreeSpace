@@ -34,4 +34,4 @@ currently developing iOS and web applications.
 ![Home Screen](https://i.imgur.com/pkA5ZMS.png)
 {:.some-css-class style="width: 200px"}
 ![Available Rooms](https://imgur.com/T1uxq3f)
-{:.some-css-class style="width: 200px"}
+<img src="https://imgur.com/T1uxq3f" width="200" height="150">
