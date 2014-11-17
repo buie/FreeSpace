@@ -15,7 +15,7 @@ directory streaming API. FreeSpace allows students to access this data through a
 native Android app and room status updates via text using Twilio. We are 
 currently developing iOS and web applications.
 
-[http://findyourfreespace.com/](http://findyourfreespace.com/ "http://findyourfreespace.com/")
+[http://findyourfreespace.com/](http://findyourfreespace.com/ "findyourfreespace.com/")
 
 ##Features
 - Distributed sensor network
